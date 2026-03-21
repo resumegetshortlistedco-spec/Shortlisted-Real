@@ -54,12 +54,11 @@ function RewriteInner() {
           let d = ""; try { d = atob(base64); } catch(e) {}
           content.push({ type: "text", text: "Resume:\n" + d });
         }
-        content.push({ type: "text", text: "Rewrite this resume professionally. Return only valid JSON matching this format: {\"note\": \"one sentence expert tip\", \"resume\": {\"name\": \"\", \"contact\": \"\", \"summary\": \"\", \"experience\": [{\"title\": \"\", \"company\": \"\", \"dates\": \"\", \"bullets\": []}], \"education\": [{\"degree\": \"\", \"school\": \"\", \"dates\": \"\"}], \"skills\": []}}" });
+        content.push({ type: "text", text: 'Rewrite this resume professionally. Return only valid JSON: {"note": "one sentence expert tip", "resume": {"name": "", "contact": "", "summary": "", "experience": [{"title": "", "company": "", "dates": "", "bullets": []}], "education": [{"degree": "", "school": "", "dates": ""}], "skills": []}}' });
         messages = [{ role: "user", content }];
       } else {
-        messages = [{ role: "user", content: `Rewrite this resume professionally.\n\nResume:\n${pastedText}\n\nReturn only valid JSON: {"note": "one sentence expert tip", "resume": {"name": "", "contact": "", "summary": "", "experience": [{"title": "", "company": "", "dates": "", "bullets": []}], "education": [{"degree": "", "school": "", "dates": ""}], "skills": []}}` }];
+        messages = [{ role: "user", content: 'Rewrite this resume professionally.\n\nResume:\n' + pastedText + '\n\nReturn only valid JSON: {"note": "one sentence expert tip", "resume": {"name": "", "contact": "", "summary": "", "experience": [{"title": "", "company": "", "dates": "", "bullets": []}], "education": [{"degree": "", "school": "", "dates": ""}], "skills": []}}' }];
       }
-
       const res = await fetch("/api/anthropic", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -86,8 +85,8 @@ function RewriteInner() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514", max_tokens: 800,
-          system: "You are an expert cover letter writer. Write cover letters that are specific, warm, and compelling.",
-          messages: [{ role: "user", content: `Write a compelling 3-paragraph cover letter for ${r.name} applying for ${r.experience?.[0]?.title || "a role"}. Use their experience: ${r.summary}. Return only the cover letter text.` }],
+          system: "You are an expert cover letter writer.",
+          messages: [{ role: "user", content: "Write a compelling 3-paragraph cover letter for " + r.name + " applying for " + (r.experience?.[0]?.title || "a role") + ". Use their experience: " + r.summary + ". Return only the cover letter text." }],
         }),
       });
       const data = await res.json();
@@ -122,50 +121,37 @@ function RewriteInner() {
       <div style={s.card}>
         {!result ? (
           <>
-            <div style={s.badge}>
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Payment confirmed
-            </div>
-            <div style={s.title}>You're all set — let's rewrite</div>
-            <div style={s.sub}>Paste or upload your resume below and we'll get to work. Your rewrite will be ready in about 30 seconds.</div>
-
+            <div style={s.badge}>Payment confirmed</div>
+            <div style={s.title}>You are all set</div>
+            <div style={s.sub}>Paste or upload your resume below and we will get to work. Your rewrite will be ready in about 30 seconds.</div>
             <div style={s.tabs}>
               <button style={s.tab(resumeTab==="paste")} onClick={() => setResumeTab("paste")}>Paste text</button>
               <button style={s.tab(resumeTab==="upload")} onClick={() => setResumeTab("upload")}>Upload file</button>
             </div>
-
             {resumeTab === "paste" && (
-              <textarea
-                style={s.textarea}
-                placeholder="Paste your current resume here..."
-                value={pastedText}
-                onChange={e => setPastedText(e.target.value)}
-              />
+              <textarea style={s.textarea} placeholder="Paste your current resume here..." value={pastedText} onChange={e => setPastedText(e.target.value)} />
             )}
-
             {resumeTab === "upload" && (
               <div style={s.uploadZone} onClick={() => fileInputRef.current?.click()}>
                 <input ref={fileInputRef} type="file" accept=".pdf,.doc,.docx,.txt" style={{display:"none"}} onChange={e => handleFile(e.target.files?.[0])} />
                 {uploadedFile ? (
-                  <div style={{color:"#5a8a6a", fontWeight:500}}>✓ {uploadedFile.name}</div>
+                  <div style={{color:"#5a8a6a", fontWeight:500}}>Done: {uploadedFile.name}</div>
                 ) : (
                   <>
-                    <div style={{marginBottom:6}}>Drop your resume here, or <span style={{color:"#4a90b8", textDecoration:"underline"}}>browse</span></div>
+                    <div style={{marginBottom:6}}>Drop your resume here, or click to browse</div>
                     <div style={{fontSize:"0.78rem"}}>PDF, Word or plain text</div>
                   </>
                 )}
               </div>
             )}
-
             {error && <div style={s.error}>{error}</div>}
-
             <button style={s.btn} onClick={handleSubmit} disabled={loading}>
-              {loading ? "Rewriting your resume…" : "Rewrite my resume"}
+              {loading ? "Rewriting your resume..." : "Rewrite my resume"}
             </button>
           </>
         ) : (
           <>
-            <div style={s.badge}>✓ Your rewritten resume</div>
+            <div style={s.badge}>Your rewritten resume</div>
             <div style={s.resumeDoc}>
               {result.resume?.name && <div style={{fontSize:"1.4rem", fontWeight:700, marginBottom:4}}>{result.resume.name}</div>}
               {result.resume?.contact && <div style={{fontSize:"0.82rem", color:"#666", marginBottom:"1rem"}}>{result.resume.contact}</div>}
@@ -175,7 +161,7 @@ function RewriteInner() {
                 {result.resume.experience.map((exp, i) => (
                   <div key={i} style={{marginBottom:"1rem"}}>
                     <div style={{display:"flex", justifyContent:"space-between", flexWrap:"wrap"}}>
-                      <span style={{fontWeight:600}}>{exp.title}{exp.company && <span style={{fontWeight:400}}> · {exp.company}</span>}</span>
+                      <span style={{fontWeight:600}}>{exp.title}{exp.company && <span style={{fontWeight:400}}> at {exp.company}</span>}</span>
                       {exp.dates && <span style={{fontSize:"0.82rem", color:"#888"}}>{exp.dates}</span>}
                     </div>
                     {exp.bullets?.length > 0 && <ul style={{margin:"0.4rem 0 0 1.2rem", padding:0}}>{exp.bullets.map((b,j) => <li key={j} style={{marginBottom:3}}>{b}</li>)}</ul>}
@@ -185,37 +171,27 @@ function RewriteInner() {
               {result.resume?.education?.length > 0 && (
                 <><div style={s.sectionTitle}>Education</div>
                 {result.resume.education.map((edu, i) => (
-                  <div key={i} style={{display:"flex", justifyContent:"space-between", flexWrap:"wrap", marginBottom:4}}>
-                    <span style={{fontWeight:600}}>{edu.degree}{edu.school && <span style={{fontWeight:400}}> · {edu.school}</span>}</span>
-                    {edu.dates && <span style={{fontSize:"0.82rem", color:"#888"}}>{edu.dates}</span>}
+                  <div key={i} style={{marginBottom:4}}>
+                    <span style={{fontWeight:600}}>{edu.degree}{edu.school && <span style={{fontWeight:400}}> at {edu.school}</span>}</span>
+                    {edu.dates && <span style={{fontSize:"0.82rem", color:"#888", marginLeft:8}}>{edu.dates}</span>}
                   </div>
                 ))}</>
               )}
               {result.resume?.skills?.length > 0 && (<><div style={s.sectionTitle}>Skills</div><p style={{margin:0}}>{result.resume.skills.join(", ")}</p></>)}
             </div>
-
-            {result.note && (
-              <div style={s.expertNote}>
-                <strong style={{color:"#5a8a6a"}}>Expert note:</strong> {result.note}
-              </div>
-            )}
-
-            <button style={{...s.btn, background:"white", color:"#1e2820", border:"1.5px solid #d8e2da", marginTop:"1rem"}} onClick={() => window.print()}>
-              Save as PDF
-            </button>
-
+            {result.note && <div style={s.expertNote}><strong style={{color:"#5a8a6a"}}>Expert note:</strong> {result.note}</div>}
+            <button style={{...s.btn, background:"white", color:"#1e2820", border:"1.5px solid #d8e2da", marginTop:"1rem"}} onClick={() => window.print()}>Save as PDF</button>
             {!coverLetter ? (
               <button style={s.coverBtn} onClick={generateCoverLetter} disabled={coverLoading}>
-                {coverLoading ? "Writing your cover letter…" : "✦ Generate free cover letter"}
+                {coverLoading ? "Writing your cover letter..." : "Generate free cover letter"}
               </button>
             ) : (
               <div style={{marginTop:"1.5rem"}}>
-                <div style={{...s.sectionTitle, fontSize:"0.72rem"}}>Cover letter — ready to use</div>
+                <div style={s.sectionTitle}>Cover letter</div>
                 <div style={{...s.resumeDoc, whiteSpace:"pre-wrap", fontSize:"0.88rem"}}>{coverLetter}</div>
               </div>
             )}
-
-            <button style={s.resetBtn} onClick={() => window.location.href = "/"}>← Rewrite another resume</button>
+            <button style={s.resetBtn} onClick={() => window.location.href = "/"}>Back to home</button>
           </>
         )}
       </div>
