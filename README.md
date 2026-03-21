@@ -195,3 +195,4 @@ Make sure `NEXT_PUBLIC_APP_URL` matches where your app is running exactly (no tr
 **API calls failing?**
 Check that `ANTHROPIC_API_KEY` is set correctly in `.env.local` and you've restarted the dev server after changing it.
  
+ 
