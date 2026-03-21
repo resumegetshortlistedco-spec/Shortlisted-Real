@@ -31,7 +31,7 @@ export async function POST(request) {
       line_items: [{ price: priceId, quantity: 1 }],
       mode: "payment",
       // After payment, redirect back with the session ID so we can unlock the app
-      success_url: `${appUrl}/success?session_id={CHECKOUT_SESSION_ID}&type=${type}`,
+      success_url: `${appUrl}/rewrite?session_id={CHECKOUT_SESSION_ID}&type=${type}`,
       cancel_url: `${appUrl}/?cancelled=true`,
       // Store any context you want to retrieve after payment
       metadata: metadata || {},

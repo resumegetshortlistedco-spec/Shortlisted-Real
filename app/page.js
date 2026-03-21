@@ -312,6 +312,15 @@ const S = `
   }
   .form-optional { font-weight: 300; color: var(--text-faint); }
 
+  .payment-notice {
+    display: flex; align-items: flex-start; gap: 0.5rem;
+    background: rgba(74,144,184,0.07); border: 1.5px solid rgba(74,144,184,0.2);
+    border-radius: var(--radius-sm); padding: 0.75rem 1rem;
+    font-size: 0.78rem; color: var(--text-mid); font-weight: 300; line-height: 1.5;
+    margin-bottom: 1.2rem;
+  }
+  .payment-notice svg { flex-shrink: 0; margin-top: 1px; }
+
   .form-input {
     width: 100%; background: var(--bg);
     border: 1.5px solid #d8e2da; border-radius: var(--radius-sm);
@@ -838,88 +847,6 @@ const S = `
     font-size: 0.75rem; color: var(--text-faint); font-weight: 300;
     font-style: italic;
   }
-  /* ─── JOB MATCHING ─── */
-  .jobs-section {
-    margin-top: 1.2rem; margin-bottom: 0.4rem;
-    border: 1.5px solid #e0e8e2; border-radius: var(--radius);
-    overflow: hidden; box-shadow: var(--shadow);
-  }
-  .jobs-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.85rem 1.2rem;
-    background: var(--bg2); border-bottom: 1.5px solid #e0e8e2;
-  }
-  .jobs-header-label {
-    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--sky);
-    display: flex; align-items: center; gap: 0.5rem;
-  }
-  .jobs-header-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sky); display: inline-block; }
-  .jobs-search-bar {
-    padding: 1.1rem 1.2rem; background: white;
-    border-bottom: 1.5px solid #e0e8e2;
-    display: flex; gap: 0.65rem; flex-wrap: wrap; align-items: flex-end;
-  }
-  .jobs-search-group { display: flex; flex-direction: column; gap: 0.3rem; flex: 1; min-width: 140px; }
-  .jobs-search-label { font-size: 0.72rem; font-weight: 500; color: var(--text-muted); }
-  .jobs-search-input {
-    background: var(--bg); border: 1.5px solid #d8e2da;
-    border-radius: var(--radius-sm); color: var(--text);
-    font-family: 'Outfit', sans-serif; font-size: 0.88rem;
-    padding: 0.65rem 0.9rem; outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .jobs-search-input:focus { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(74,144,184,0.1); background: white; }
-  .jobs-search-btn {
-    background: var(--sky); color: white; border: none;
-    border-radius: var(--radius-sm); padding: 0.68rem 1.3rem;
-    font-family: 'Outfit', sans-serif; font-size: 0.86rem; font-weight: 600;
-    cursor: pointer; transition: all 0.2s; white-space: nowrap;
-    display: flex; align-items: center; gap: 0.45rem;
-    box-shadow: 0 3px 12px rgba(74,144,184,0.25); align-self: flex-end;
-  }
-  .jobs-search-btn:hover:not(:disabled) { background: #5aa0c8; transform: translateY(-1px); }
-  .jobs-search-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
-  .jobs-list { padding: 1rem 1.2rem; display: flex; flex-direction: column; gap: 0.75rem; background: white; }
-  .job-card {
-    border: 1.5px solid #e4ede6; border-radius: var(--radius-sm);
-    padding: 1.1rem 1.2rem; transition: all 0.2s;
-    display: flex; flex-direction: column; gap: 0.55rem;
-    animation: fadeUp 0.35s ease both;
-  }
-  .job-card:hover { border-color: var(--sky); box-shadow: 0 3px 16px rgba(74,144,184,0.1); }
-  .job-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
-  .job-card-left { flex: 1; min-width: 0; }
-  .job-title { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
-  .job-company { font-size: 0.82rem; color: var(--text-mid); font-weight: 400; display: flex; align-items: center; gap: 0.35rem; }
-  .job-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
-  .job-tag {
-    font-size: 0.69rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
-    padding: 0.2rem 0.6rem; border-radius: 2rem; border: 1.5px solid; white-space: nowrap;
-  }
-  .job-tag.location { color: var(--text-muted); border-color: #d8e2da; background: var(--bg); }
-  .job-tag.salary { color: var(--sage); border-color: var(--sage-border); background: var(--sage-dim); }
-  .job-tag.type { color: var(--sky); border-color: var(--sky-border); background: var(--sky-dim); }
-  .job-match-bar { display: flex; align-items: center; gap: 0.65rem; }
-  .job-match-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 400; white-space: nowrap; }
-  .job-match-track { flex: 1; height: 4px; background: var(--bg2); border-radius: 2px; overflow: hidden; }
-  .job-match-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--sage), var(--sage-light)); transition: width 0.8s cubic-bezier(0.4,0,0.2,1); }
-  .job-match-pct { font-size: 0.78rem; font-weight: 600; color: var(--sage); white-space: nowrap; }
-  .job-reason { font-size: 0.82rem; color: var(--text-mid); font-weight: 300; line-height: 1.6; padding-top: 0.4rem; border-top: 1px solid var(--bg2); }
-  .job-apply-btn {
-    align-self: flex-start;
-    background: none; border: 1.5px solid var(--sky-border); color: var(--sky);
-    border-radius: var(--radius-sm); padding: 0.42rem 1rem;
-    font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 600;
-    cursor: pointer; transition: all 0.18s; display: flex; align-items: center; gap: 0.35rem;
-  }
-  .job-apply-btn:hover { background: var(--sky-dim); border-color: var(--sky); }
-  .jobs-empty { padding: 2.5rem 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.88rem; font-weight: 300; line-height: 1.6; background: white; }
-  .jobs-loading { display: flex; align-items: center; justify-content: center; gap: 0.6rem; padding: 2.5rem; background: white; color: var(--text-muted); font-size: 0.86rem; font-weight: 300; }
-  .jobs-loading-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--sky); animation: dotBounce 1.2s ease infinite; }
-  .jobs-loading-dot:nth-child(2) { animation-delay: 0.15s; }
-  .jobs-loading-dot:nth-child(3) { animation-delay: 0.3s; }
-  @keyframes dotBounce { 0%,80%,100% { transform: scale(0.7); opacity: 0.4; } 40% { transform: scale(1.1); opacity: 1; } }
 
   /* ─── FLOW STRIP ─── */
   .flow-strip {
@@ -1175,12 +1102,7 @@ export default function App() {
   const [coverLetter, setCoverLetter] = useState(null);
   const [coverLoading, setCoverLoading] = useState(false);
 
-  // job matching
-  const [jobMatches, setJobMatches] = useState([]);
-  const [jobMatchLoading, setJobMatchLoading] = useState(false);
-  const [jobMatchLocation, setJobMatchLocation] = useState("");
-  const [jobMatchRole, setJobMatchRole] = useState("");
-  const [jobMatchSearched, setJobMatchSearched] = useState(false);
+  // job matching removed for launch
 
   const fileInputRef = useRef();
 
@@ -1265,7 +1187,6 @@ export default function App() {
     setScreen("splash"); setResult(null); setError(null); setLoading(false);
     setShowTada(false); setConfetti([]);
     setCoverLetter(null); setCoverLoading(false);
-    setJobMatches([]); setJobMatchLoading(false); setJobMatchLocation(""); setJobMatchRole(""); setJobMatchSearched(false);
     setSavedSession(null); setShowReturning(false);
     setPastedText(""); setUploadedFile(null); setJobTitle(""); setJobUrl("");
     setGuidedAnswers({}); setGuidedStep(0); setGuidedCurrent("");
@@ -1449,13 +1370,6 @@ export default function App() {
     setHumanSubmitted(true);
   };
 
-  useEffect(() => {
-    if (result?.resume) {
-      const inferredRole = guidedAnswers.role || jobTitle || scratchData.targetRole || result.resume.experience?.[0]?.title || "";
-      setJobMatchRole(inferredRole);
-    }
-  }, [result]);
-
   const generateCoverLetter = async () => {
     if (!result?.resume) return;
     setCoverLoading(true);
@@ -1500,74 +1414,6 @@ Respond with ONLY the cover letter text, nothing else.`;
     } catch(e) {
       setCoverLetter("Something went wrong generating your cover letter. Please try again.");
     } finally { setCoverLoading(false); }
-  };
-
-  const findJobMatches = async () => {
-    if (!result?.resume) return;
-    setJobMatchLoading(true);
-    setJobMatches([]);
-    setJobMatchSearched(true);
-    const r = result.resume;
-    const targetRole = jobMatchRole || guidedAnswers.role || jobTitle || scratchData.targetRole || r.experience?.[0]?.title || "professional";
-    const location = jobMatchLocation || "Remote";
-    const skills = r.skills?.slice(0, 8).join(", ") || "";
-    const recentTitle = r.experience?.[0]?.title || "";
-    const recentCompany = r.experience?.[0]?.company || "";
-    const summary = r.summary || "";
-
-    const prompt = `You are a job matching expert. Based on the candidate profile below, generate 5 realistic job matches they could apply for right now.
-
-CANDIDATE PROFILE:
-Name: ${r.name}
-Target Role: ${targetRole}
-Preferred Location: ${location}
-Summary: ${summary}
-Most Recent Role: ${recentTitle}${recentCompany ? " at " + recentCompany : ""}
-Top Skills: ${skills}
-Experience: ${r.experience?.map(e => e.title).join(", ") || ""}
-
-INSTRUCTIONS:
-- Generate 5 realistic job listings that genuinely match this candidate's background
-- Vary the companies (mix of well-known and plausible mid-size companies)
-- Include a mix of job types (full-time, contract, hybrid/remote)
-- Salary ranges should be realistic for the role and location
-- Match score should be 65–97% based on how well the candidate fits
-- Reason should be 1–2 sentences explaining specifically why this is a good match, referencing their actual experience
-- Apply URL should be a plausible but fictional URL (e.g. https://careers.company.com/job/role-id)
-
-Respond ONLY with a valid JSON array, no markdown, no preamble:
-[
-  {
-    "title": "Job Title",
-    "company": "Company Name",
-    "location": "City, Country or Remote",
-    "salary": "£45,000 – £55,000",
-    "type": "Full-time",
-    "match": 92,
-    "reason": "Your experience as X at Y directly maps to what they need. Your skills in Z are a strong fit for their tech stack.",
-    "applyUrl": "https://careers.example.com/jobs/12345"
-  }
-]`;
-
-    try {
-      const res = await fetch("/api/anthropic", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514", max_tokens: 1200,
-          system: "You are a job matching expert. Always respond with valid JSON only. No markdown, no backticks, no explanation.",
-          messages: [{ role: "user", content: prompt }],
-        }),
-      });
-      const data = await res.json();
-      if (data.error) throw new Error(data.error.message);
-      const raw = (data.content?.map(b => b.text || "").join("") || "").trim();
-      const clean = raw.replace(/^```json\s*/i,"").replace(/^```\s*/i,"").replace(/```\s*$/i,"").trim();
-      const jobs = JSON.parse(clean);
-      setJobMatches(Array.isArray(jobs) ? jobs : []);
-    } catch(e) {
-      setJobMatches([]);
-    } finally { setJobMatchLoading(false); }
   };
 
   // ── before/after data ──
@@ -1698,7 +1544,7 @@ Respond ONLY with a valid JSON array, no markdown, no preamble:
           <div className="splash-hero">
             <div className="eyebrow">Don't just apply. Stand out.</div>
             <h1 className="splash-headline">Your resume,<br/><em>shortlisted.</em></h1>
-            <p className="splash-sub">Get your resume rewritten, matched to real jobs, and a cover letter — in minutes.</p>
+            <p className="splash-sub">Get your resume rewritten and a tailored cover letter — in minutes.</p>
             <div className="trust-row">
               <div className="trust-item">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8a9e8e" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -1770,17 +1616,7 @@ Respond ONLY with a valid JSON array, no markdown, no preamble:
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               </div>
               <div className="flow-step">
-                <div className="flow-step-num" style={{background:"var(--sky-dim)",borderColor:"var(--sky-border)",color:"var(--sky)"}}>2</div>
-                <div className="flow-step-body">
-                  <div className="flow-step-title">Find matching jobs</div>
-                  <div className="flow-step-sub">Scored to your new resume &amp; location</div>
-                </div>
-              </div>
-              <div className="flow-arrow">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </div>
-              <div className="flow-step">
-                <div className="flow-step-num" style={{background:"rgba(74,144,184,0.08)",borderColor:"rgba(74,144,184,0.2)",color:"#4a90b8"}}>3</div>
+                <div className="flow-step-num" style={{background:"rgba(74,144,184,0.08)",borderColor:"rgba(74,144,184,0.2)",color:"#4a90b8"}}>2</div>
                 <div className="flow-step-body">
                   <div className="flow-step-title">Get a cover letter <span className="flow-free-tag">Free</span></div>
                   <div className="flow-step-sub">Tailored to the role, ready to send</div>
@@ -2056,6 +1892,11 @@ Respond ONLY with a valid JSON array, no markdown, no preamble:
 
             {error && <div className="error-msg">{error}</div>}
 
+            <div className="payment-notice">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4a90b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              You'll be taken to a secure payment page before your rewrite. After paying, you'll be brought back to a fresh form — so have your resume handy to paste or upload again.
+            </div>
+
             <button className="submit-btn" onClick={() => checkoutAndProceed("rewrite", handleSubmit)} disabled={loading}>
               {loading ? <><div className="spinner"/>{loadingMsg}</> : "Rewrite my resume · $5"}
             </button>
@@ -2117,6 +1958,10 @@ Respond ONLY with a valid JSON array, no markdown, no preamble:
             )}
 
             {error && <div className="error-msg">{error}</div>}
+            <div className="payment-notice">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4a90b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              You'll be taken to a secure payment page before your rewrite. After paying, you'll be brought back to a fresh form — so have your resume handy to paste or upload again.
+            </div>
             <button className="submit-btn" onClick={() => checkoutAndProceed("rewrite", handleSubmit)} disabled={loading}>
               {loading ? <><div className="spinner"/>{loadingMsg}</> : "Rewrite my resume · $5"}
             </button>
@@ -2190,6 +2035,10 @@ Respond ONLY with a valid JSON array, no markdown, no preamble:
             </div>
 
             {error && <div className="error-msg">{error}</div>}
+            <div className="payment-notice">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4a90b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              You'll be taken to a secure payment page before we build your resume. After paying, you'll be brought back to a fresh form — your notes will need to be re-entered.
+            </div>
             <button className="submit-btn" onClick={() => checkoutAndProceed("scratch", handleScratchSubmit)} disabled={loading || !scratchData.name.trim() || !scratchData.jobs[0].title.trim()}>
               {loading ? <><div className="spinner"/>{loadingMsg}</> : "Build my resume · $10"}
             </button>
@@ -2332,95 +2181,6 @@ Respond ONLY with a valid JSON array, no markdown, no preamble:
                 From your expert
               </div>
               <p className="expert-note-text">{result.note}</p>
-            </div>
-
-            <div className="jobs-section">
-              <div className="jobs-header">
-                <div className="jobs-header-label">
-                  <span className="jobs-header-dot"/>
-                  Find matching jobs
-                </div>
-              </div>
-              <div className="jobs-search-bar">
-                <div className="jobs-search-group">
-                  <label className="jobs-search-label">Role / keywords</label>
-                  <input
-                    className="jobs-search-input"
-                    placeholder="e.g. Product Manager, UX Designer…"
-                    value={jobMatchRole}
-                    onChange={e => setJobMatchRole(e.target.value)}
-                  />
-                </div>
-                <div className="jobs-search-group">
-                  <label className="jobs-search-label">Preferred location</label>
-                  <input
-                    className="jobs-search-input"
-                    placeholder="e.g. London, Remote, New York…"
-                    value={jobMatchLocation}
-                    onChange={e => setJobMatchLocation(e.target.value)}
-                  />
-                </div>
-                <button className="jobs-search-btn" onClick={findJobMatches} disabled={jobMatchLoading}>
-                  {jobMatchLoading ? (
-                    <><div className="spinner" style={{borderColor:"rgba(255,255,255,0.3)",borderTopColor:"white",width:"14px",height:"14px"}}/>Searching…</>
-                  ) : (
-                    <>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                      Find jobs
-                    </>
-                  )}
-                </button>
-              </div>
-
-              {jobMatchLoading && (
-                <div className="jobs-loading">
-                  <div className="jobs-loading-dot"/><div className="jobs-loading-dot"/><div className="jobs-loading-dot"/>
-                  <span>Finding your best matches…</span>
-                </div>
-              )}
-
-              {!jobMatchLoading && jobMatchSearched && jobMatches.length === 0 && (
-                <div className="jobs-empty">No matches found. Try adjusting your role or location.</div>
-              )}
-
-              {!jobMatchLoading && jobMatches.length > 0 && (
-                <div className="jobs-list">
-                  {jobMatches.map((job, i) => (
-                    <div key={i} className="job-card" style={{animationDelay: i * 0.07 + "s"}}>
-                      <div className="job-card-top">
-                        <div className="job-card-left">
-                          <div className="job-title">{job.title}</div>
-                          <div className="job-company">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-                            {job.company}
-                          </div>
-                        </div>
-                        <button className="job-apply-btn" onClick={() => window.open(job.applyUrl || "#", "_blank")}>
-                          Apply
-                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-                        </button>
-                      </div>
-                      <div className="job-meta">
-                        {job.location && <span className="job-tag location">{job.location}</span>}
-                        {job.salary && <span className="job-tag salary">{job.salary}</span>}
-                        {job.type && <span className="job-tag type">{job.type}</span>}
-                      </div>
-                      <div className="job-match-bar">
-                        <span className="job-match-label">Match</span>
-                        <div className="job-match-track">
-                          <div className="job-match-fill" style={{width: job.match + "%"}}/>
-                        </div>
-                        <span className="job-match-pct">{job.match}%</span>
-                      </div>
-                      {job.reason && <div className="job-reason">{job.reason}</div>}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {!jobMatchLoading && !jobMatchSearched && (
-                <div className="jobs-empty">Enter a role and location above, then hit <strong>Find jobs</strong> to see personalised matches based on your rewritten resume.</div>
-              )}
             </div>
 
             {!coverLetter ? (
