@@ -1148,10 +1148,19 @@ export default function App() {
       if (pending.resumeTab) setResumeTab(pending.resumeTab);
 
       // Navigate to the right screen and auto-submit after a short delay
-      if (pending.productType === "scratch") {
+      if (pending.productType === "human") {
+        // For human review — send email and redirect to confirmation page
+        if (pending.humanData) {
+          fetch("/api/send-review-email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ humanData: pending.humanData, sessionId }),
+          }).catch(e => console.error("Email error:", e));
+        }
+        window.location.href = "/confirmed";
+      } else if (pending.productType === "scratch") {
         setScreen("scratch");
         setTimeout(() => {
-          // handleScratchSubmit will be called once state has updated
           document.getElementById("auto-submit-scratch")?.click();
         }, 400);
       } else {
@@ -1265,6 +1274,7 @@ export default function App() {
         guidedAnswers,
         scratchData,
         resumeTab,
+        humanData,
       }));
     } catch(e) {}
 
