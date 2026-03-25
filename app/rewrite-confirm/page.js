@@ -22,7 +22,7 @@ function RewriteInner() {
       localStorage.setItem("shortlisted:paid", JSON.stringify({
         sessionId, type, paidAt: new Date().toISOString()
       }));
-      window.history.replaceState({}, "", "/rewrite");
+      window.history.replaceState({}, "", "/rewrite-confirm");
     }
   }, []);
 
