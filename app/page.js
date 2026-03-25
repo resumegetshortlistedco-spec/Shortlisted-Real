@@ -1064,6 +1064,12 @@ ${JSON_FORMAT}`;
 // ── component ─────────────────────────────────────────────────────────────────
 export default function App() {
   const [screen, setScreen] = useState("splash");
+
+  const goTo = (s) => {
+    const paths = { splash: "/", guided: "/rewrite", jump: "/jump", scratch: "/build", human: "/review" };
+    window.history.pushState({}, "", paths[s] || "/");
+    setScreen(s);
+  };
   const [scrolled, setScrolled] = useState(false);
   const [savedSession, setSavedSession] = useState(null);
   const [showReturning, setShowReturning] = useState(false);
@@ -1516,7 +1522,7 @@ Respond with ONLY the cover letter text, nothing else.`;
         </div>
         <div className="nav-right">
           {screen !== "splash" && <button className="nav-back" onClick={reset}>← Back</button>}
-          <button className="nav-cta" onClick={() => setScreen("human")}>Human review · $30</button>
+          <button className="nav-cta" onClick={() => goTo("human")}>Human review · $30</button>
         </div>
       </nav>
 
@@ -1573,7 +1579,7 @@ Respond with ONLY the cover letter text, nothing else.`;
 
           <div className="choice-section">
             <div className="choice-row">
-              <div className="choice-card" onClick={() => setScreen("guided")}>
+              <div className="choice-card" onClick={() => goTo("guided")}>
                 <span className="choice-item-price" style={{color:"var(--sage)",background:"var(--sage-dim)",borderColor:"var(--sage-border)"}}>$5</span>
                 <span className="choice-icon">
                   <svg viewBox="0 0 40 40" fill="none"><path d="M8 32V16l12-8 12 8v16" stroke="#5a8a6a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><rect x="14" y="22" width="12" height="10" rx="1" stroke="#5a8a6a" strokeWidth="1.5"/><circle cx="20" cy="13" r="3" stroke="#5a8a6a" strokeWidth="1.5"/></svg>
@@ -1583,7 +1589,7 @@ Respond with ONLY the cover letter text, nothing else.`;
                 <span className="choice-tag">Most personalised</span>
               </div>
 
-              <div className="choice-card" onClick={() => setScreen("jump")}>
+              <div className="choice-card" onClick={() => goTo("jump")}>
                 <span className="choice-item-price" style={{color:"var(--sky)",background:"var(--sky-dim)",borderColor:"var(--sky-border)"}}>$5</span>
                 <span className="choice-icon">
                   <svg viewBox="0 0 40 40" fill="none"><path d="M20 8v24M8 20l12-12 12 12" stroke="#4a90b8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -1593,7 +1599,7 @@ Respond with ONLY the cover letter text, nothing else.`;
                 <span className="choice-tag" style={{color:"#4a90b8",background:"rgba(74,144,184,0.1)",borderColor:"rgba(74,144,184,0.25)"}}>Fastest</span>
               </div>
 
-              <div className="choice-card" onClick={() => setScreen("scratch")}>
+              <div className="choice-card" onClick={() => goTo("scratch")}>
                 <span className="choice-item-price" style={{color:"#7a6abf",background:"rgba(122,106,191,0.1)",borderColor:"rgba(122,106,191,0.25)"}}>$10</span>
                 <span className="choice-icon">
                   <svg viewBox="0 0 40 40" fill="none"><rect x="8" y="6" width="24" height="28" rx="2" stroke="#7a6abf" strokeWidth="1.5"/><line x1="13" y1="14" x2="27" y2="14" stroke="#7a6abf" strokeWidth="1.5" strokeLinecap="round"/><line x1="13" y1="19" x2="27" y2="19" stroke="#7a6abf" strokeWidth="1.5" strokeLinecap="round"/><line x1="13" y1="24" x2="21" y2="24" stroke="#7a6abf" strokeWidth="1.5" strokeLinecap="round"/></svg>
@@ -1603,7 +1609,7 @@ Respond with ONLY the cover letter text, nothing else.`;
                 <span className="choice-tag" style={{color:"#7a6abf",background:"rgba(122,106,191,0.1)",borderColor:"rgba(122,106,191,0.25)"}}>Build from scratch</span>
               </div>
 
-              <div className="choice-card" onClick={() => setScreen("human")}>
+              <div className="choice-card" onClick={() => goTo("human")}>
                 <span className="choice-item-price">$30</span>
                 <span className="choice-icon">
                   <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="14" r="6" stroke="#b06a3a" strokeWidth="1.5"/><path d="M8 34c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#b06a3a" strokeWidth="1.5" strokeLinecap="round"/><path d="M28 18l2 2 4-4" stroke="#b06a3a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
