@@ -1065,6 +1065,12 @@ ${JSON_FORMAT}`;
 export default function App() {
   const [screen, setScreen] = useState("splash");
 
+  useEffect(() => {
+    const paths = { '/rewrite': 'guided', '/jump': 'jump', '/build': 'scratch', '/review': 'human' };
+    const s = paths[window.location.pathname];
+    if (s) setScreen(s);
+  }, []);
+
   const goTo = (s) => {
     const paths = { splash: "/", guided: "/rewrite", jump: "/jump", scratch: "/build", human: "/review" };
     window.history.pushState({}, "", paths[s] || "/");
